@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  whatsapp-bot:
+    build: .
+    container_name: whatsapp-presupuestos
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # Base de datos (Aiven cloud)
+      DATABASE_URL: ${DATABASE_URL}
+      
+      # OpenAI
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      
+      # WhatsApp
+      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID}
+      WHATSAPP_ACCESS_TOKEN: ${WHATSAPP_ACCESS_TOKEN}
+      WHATSAPP_VERIFY_TOKEN: ${WHATSAPP_VERIFY_TOKEN}
+      WHATSAPP_BUSINESS_ACCOUNT_ID: ${WHATSAPP_BUSINESS_ACCOUNT_ID}
+      
+      # Google Sheets
+      GOOGLE_SERVICE_ACCOUNT_BASE64: ${GOOGLE_SERVICE_ACCOUNT_BASE64}
+      
+      # Entorno
+      NODE_ENV: production
+      PORT: 3000
+    
+    volumes:
+      # Persistir clientes.json entre reinicios
+      - ./clientes.json:/app/clientes.json:ro
+    
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    
+    networks:
+      - bot-network
+
+networks:
+  bot-network:
+    driver: bridge

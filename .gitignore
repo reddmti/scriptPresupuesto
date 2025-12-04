@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+*.log
+credentials.json
+*.pdf
+*.xlsx
+clientes.json
+.DS_Store
+prisma/*.db
+prisma/*.db-journal

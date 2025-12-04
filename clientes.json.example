@@ -1,0 +1,10 @@
+{
+  "clientes": [
+    {
+      "nombre": "Cliente Ejemplo",
+      "telefono": "56912345678",
+      "spreadsheetId": "TU_SPREADSHEET_ID_AQUI",
+      "email_destino": ["cliente@ejemplo.com"]
+    }
+  ]
+}

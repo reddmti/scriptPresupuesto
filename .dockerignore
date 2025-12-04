@@ -1,0 +1,14 @@
+node_modules
+dist
+npm-debug.log
+.env
+.env.local
+*.log
+.git
+.gitignore
+README.md
+.DS_Store
+*.xlsx
+*.pdf
+clientes.json
+credentials.json
